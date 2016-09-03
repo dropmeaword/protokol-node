@@ -1,0 +1,3 @@
+#define DEBUG 1
+#define SERIAL_DATARATE 9600
+#define AUTOCONF_TIMEOUT 3000
