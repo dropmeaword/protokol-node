@@ -1,5 +1,5 @@
 #include "config.h"
-//#include <EEPROM.h>
+#include <EEPROM.h>
 #include "guid.h"
 #include <CmdMessenger.h> // serial messaging library
 #include <InputDebounce.h> // debounce lib
@@ -33,6 +33,7 @@ void on_reset()
 void on_unknown()
 {
   Serial.println("unknown command");
+  print_ack_guid();
 }
 
 void attachCommandCallbacks() {
@@ -98,7 +99,6 @@ void loop()
   serialPump();
 
   if(!ackSent || guidChanged) {
-      Serial.println("FIRST: ");
       print_ack_guid();
       ackSent = 1;
   }
