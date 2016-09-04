@@ -47,7 +47,6 @@ void send_ack() {
 
 void btn_pressed()
 {
-    Serial.println("Pressed, resetting GUID");
     manualId += 1;
     guid_set( manualId );
 }
@@ -63,6 +62,7 @@ void btn_hold(unsigned long duration)
   if( (duration > AUTOCONF_TIMEOUT) && (!guidChanged)) {
     guid_randomize();
     guidChanged = 1;
+    manualId = 0; // reset manual ID counter
   }
 }
 
@@ -84,9 +84,10 @@ void serialPump() {
 
 void print_ack_guid() {
   Serial.print("ACK ");
-  for(int i = 4; i < 8; i++) {
-    Serial.print( GUID[i], HEX );
-    if(i < 7) { Serial.print( ':' ); }
+  for(int i = 4; i < GUIDLENGTH; i++) {
+    //Serial.print( GUID[i], HEX );
+    print_byte( GUID[i] );
+    if(i < (GUIDLENGTH-1) ) { Serial.print( ':' ); }
   }
   Serial.println();
 }
